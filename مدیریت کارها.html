@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دفتر مهندسی طرح‌ها</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#6c5ce7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="مهندسی طرح‌ها">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogItin2YTYqNmH2YjZhSDZhNmE2K_ZhtizIiwKICAic2hvcnRfbmFtZSI6ICLZhNmE2K_ZhtizIiwKICAiZGVzY3JpcHRpb24iOiAi2YrYstin2YTYqNin2YXZhCDZhdmIINio2LHZiNivINmF2YjZhNmE2K8g2K_Zh9mFINio2KfYqNmEINio2KfZhtiMINmB2YrYp9mF2YYg2YXYsdin2LHYqCIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmZmZmIiwKICAidGhlbWVfY29sb3IiOiAiIzZjNWNlNyIsCiAgIm9yaWVudGF0aW9uIjogImFueSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0F6TURBaUlIWnBaWGRDYjNnOUlqRXdNREFpSUdacGJHdzlJblZ5YkNnalBDOXdZWFJvUGdvPSIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjczBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQXpNREFpSUhacFpYZENiM2c5SWpFd01EQWlJR1pwYkd3OUluVnliQ2dqUEM5d1lYUm9QZ289IiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0sCiAgInNjb3BlIjogIi4iLAogICJsYW5nIjogImZhIiwKICAiZGlyZWN0aW9uIjogInJ0bCIKfQ==">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body { font-family: 'Tahoma', sans-serif; background: linear-gradient(135deg, #f0f4f8, #d9e2ec); margin: 0; direction: rtl; padding-bottom: 80px; }
+        header { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; padding: 20px; text-align: center; font-size: 1.6em; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        .home-container { padding-top: 100px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .card { background: linear-gradient(135deg, #00b894, #00cec9); color: #fff; padding: 40px 20px; text-align: center; border-radius: 20px; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s; }
+        .card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+        .card:hover::before { left: 100%; }
+        .card i { font-size: 3.5em; margin-bottom: 15px; display: block; }
+        .card.small { background: linear-gradient(135deg, #74b9ff, #0984e3); padding: 25px; font-size: 1em; }
+        .page { display: none; background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); margin-top: 100px; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .back { background: linear-gradient(135deg, #555, #666); color: #fff; padding: 12px 20px; border: none; border-radius: 10px; cursor: pointer; margin-bottom: 20px; transition: background 0.3s; position: relative; z-index: 100; }
+        .back:hover { background: linear-gradient(135deg, #444, #555); }
+        input, select, textarea, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid #ddd; font-size: 1em; box-sizing: border-box; }
+        button { background: linear-gradient(135deg, #0984e3, #74b9ff); color: #fff; border: none; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .item { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); padding: 15px; border-radius: 12px; margin: 12px 0; display: flex; justify-content: space-between; align-items: flex-start; transition: all 0.3s; position: relative; }
+        .item.done { background: linear-gradient(135deg, #dff9fb, #b2e4e6); text-decoration: line-through; opacity: 0.8; }
+        .item.meet { background: linear-gradient(135deg, #a29bfe, #fd79a8); color: #fff; }
+        .item.up { background: linear-gradient(135deg, #e17055, #fd79a8); }
+        .small { font-size: 0.9em; opacity: 0.9; }
+        .att a { color: #0984e3; font-weight: bold; text-decoration: none; }
+        .att a:hover { text-decoration: underline; }
+        .filter { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; }
+        .filter > * { flex: 1; min-width: 120px; }
+        h3 { color: #6c5ce7; border-bottom: 2px solid #a29bfe; padding-bottom: 10px; margin-top: 0; }
+        .item-buttons { display: flex; flex-direction: column; gap: 5px; min-width: 100px; }
+        .item-content { flex: 1; padding-left: 15px; }
+        
+        /* استایل‌های جدید */
+        .emp-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin-left: 10px;
+        }
+        .emp-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .emp-details {
+            flex: 1;
+        }
+        .emp-phone {
+            font-size: 0.85em;
+            color: #555;
+            margin-top: 3px;
+        }
+        .emp-internal {
+            font-size: 0.85em;
+            color: #777;
+        }
+        .task-emp-info {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .task-emp-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 8px;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .category-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin: 3px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .avatar-upload {
+            position: relative;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .avatar-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            cursor: pointer;
+        }
+        .avatar-input {
+            display: none;
+        }
+        .category-filter {
+            background: linear-gradient(135deg, #dfe6e9, #b2bec3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        .category-filter.active {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+        }
+        .category-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .emp-card {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            margin: 10px 0;
+        }
+        
+        /* دکمه نصب PWA */
+        .install-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header><i class="fas fa-tools"></i> دفتر مهندسی طرح‌ها</header>
+
+<!-- دکمه نصب PWA -->
+<div class="install-btn" id="installButton" style="display: none;">
+    <i class="fas fa-download"></i> نصب برنامه
+</div>
+
+<div class="container home-container" id="home">
+    <div class="grid">
+        <div class="card" onclick="goTo('tasks')"><i class="fas fa-tasks"></i><br>کارها</div>
+        <div class="card" onclick="goTo('meetings')"><i class="fas fa-calendar-alt"></i><br>جلسات</div>
+        <div class="card" onclick="goTo('chart')"><i class="fas fa-chart-pie"></i><br>نمودارها</div>
+        <div class="card small" onclick="goTo('emps')"><i class="fas fa-users-cog"></i><br>همکاران</div>
+    </div>
+</div>
+
+<!-- کارها -->
+<div class="container page" id="tasks" style="display: none;">
+    <button class="back" onclick="goTo('home')"><i class="fas fa-arrow-right"></i> بازگشت</button>
+    <h3>کار جدید</h3>
+    <input type="text" id="t1" placeholder="نام کار">
+    <select id="t2"></select>
+    <textarea id="t3" placeholder="توضیح"></textarea>
+    <div class="form-group">
+        <label>دسته‌بندی:</label>
+        <select id="t6">
+            <option value="">انتخاب کنید</option>
+            <option value="فنی">فنی</option>
+            <option value="اداری">اداری</option>
+            <option value="مالی">مالی</option>
+            <option value="فروش">فروش</option>
+            <option value="پشتیبانی">پشتیبانی</option>
+            <option value="طراحی">طراحی</option>
+            <option value="تحقیق">تحقیق</option>
+        </select>
+    </div>
+    <div style="display: flex; gap: 10px;">
+        <div style="flex: 1;">
+            <label>تاریخ شروع:</label>
+            <input type="date" id="t4">
+        </div>
+        <div style="flex: 1;">
+            <label>تاریخ پایان:</label>
+            <input type="date" id="t7">
+        </div>
+    </div>
+    <input type="file" id="t5" accept="image/*,.pdf,.doc,.docx">
+    <button onclick="saveTask()">ذخیره کار</button>
+    
+    <div class="filter">
+        <select id="f1" onchange="listTasks()"><option value="">همه همکاران</option></select>
+        <select id="f2" onchange="listTasks()"><option value="">همه وضعیت</option><option value="1">انجام شده</option><option value="0">در حال انجام</option></select>
+        <select id="f3" onchange="listTasks()"><option value="">همه دسته‌بندی</option></select>
+    </div>
+    
+    <div class="category-filters" id="dateFilters">
+        <div class="category-filter active" onclick="filterByDate('all')">همه</div>
+        <div class="category-filter" onclick="filterByDate('today')">امروز</div>
+        <div class="category-filter" onclick="filterByDate('week')">این هفته</div>
+        <div class="category-filter" onclick="filterByDate('month')">این ماه</div>
+        <div class="category-filter" onclick="filterByDate('past')">گذشته</div>
+        <div class="category-filter" onclick="filterByDate('future')">آینده</div>
+    </div>
+    
+    <div id="tasklist"></div>
+</div>
+
+<!-- جلسات -->
+<div class="container page" id="meetings" style="display: none;">
+    <button class="back" onclick="goTo('home')"><i class="fas fa-arrow-right"></i> بازگشت</button>
+    <h3>جلسه جدید</h3>
+    <input type="text" id="m1" placeholder="موضوع جلسه">
+    <div style="display: flex; gap: 10px;">
+        <input type="date" id="m2">
+        <input type="time" id="m3">
+    </div>
+    <input type="text" id="m4" placeholder="محل (اختیاری)">
+    <textarea id="m5" placeholder="یادداشت"></textarea>
+    <input type="file" id="m6" accept="image/*,.pdf,.doc,.docx">
+    <label><input type="checkbox" id="m7" checked> یادآوری ۱۵ دقیقه قبل</label>
+    <button onclick="saveMeet()">ذخیره جلسه</button>
+    <h3 style="margin-top: 30px;">لیست جلسات</h3>
+    <div id="meetlist"></div>
+</div>
+
+<!-- همکاران -->
+<div class="container page" id="emps" style="display: none;">
+    <button class="back" onclick="goTo('home')"><i class="fas fa-arrow-right"></i> بازگشت</button>
+    <h3>مدیریت همکاران</h3>
+    
+    <div class="emp-card">
+        <h4>افزودن همکار جدید</h4>
+        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+            <div class="avatar-upload">
+                <img id="avatarPreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2374b9ff'/%3E%3Ctext x='50' y='60' font-size='40' text-anchor='middle' fill='white'%3E%3C/title%3E👤%3C/text%3E%3C/svg%3E" class="avatar-preview" onclick="document.getElementById('avatarInput').click()">
+                <input type="file" id="avatarInput" class="avatar-input" accept="image/*" onchange="previewAvatar(event)">
+            </div>
+            <div style="flex: 1;">
+                <input type="text" id="e1" placeholder="نام و نام خانوادگی">
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <input type="tel" id="e2" placeholder="شماره موبایل">
+            <input type="text" id="e3" placeholder="شماره داخلی">
+        </div>
+        <button onclick="addEmp()" style="width: auto; padding: 12px 30px;">افزودن همکار</button>
+    </div>
+    
+    <h3 style="margin-top: 30px;">لیست همکاران</h3>
+    <div id="emplist"></div>
+</div>
+
+<!-- نمودار -->
+<div class="container page" id="chart" style="display: none;">
+    <button class="back" onclick="goTo('home')"><i class="fas fa-arrow-right"></i> بازگشت</button>
+    <h3>نمودار عملکرد</h3>
+    <select id="c1" onchange="drawChart()" style="margin-bottom: 20px;"></select>
+    <canvas id="canvas" width="400" height="200" style="background: #fff; border-radius: 12px; display: block; margin: 0 auto;"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js@1.1.5/dist/jalaali.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('data:application/javascript;base64,' + btoa(`
+            self.addEventListener('install', function(event) {
+                event.waitUntil(self.skipWaiting());
+            });
+            self.addEventListener('activate', function(event) {
+                event.waitUntil(self.clients.claim());
+            });
+            self.addEventListener('fetch', function(event) {});
+        `)).then(function(registration) {
+            console.log('ServiceWorker ثبت شد');
+        }).catch(function(err) {
+            console.log('خطا در ثبت ServiceWorker:', err);
+        });
+    });
+}
+
+// PWA Install Prompt
+let deferredPrompt;
+const installButton = document.getElementById('installButton');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installButton.style.display = 'block';
+    
+    installButton.addEventListener('click', (e) => {
+        installButton.style.display = 'none';
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('کاربر نصب را پذیرفت');
+            }
+            deferredPrompt = null;
+        });
+    });
+});
+
+window.addEventListener('appinstalled', (evt) => {
+    console.log('برنامه نصب شد');
+    installButton.style.display = 'none';
+});
+
+// داده‌ها (با localStorage)
+let emps = JSON.parse(localStorage.getItem('emps')) || [
+    {
+        name: 'علی رضایی',
+        phone: '09123456789',
+        internal: '101',
+        avatar: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%2300b894%22/%3E%3Ctext x=%2250%22 y=%2260%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22%3Eع%3C/text%3E%3C/svg%3E'
+    },
+    {
+        name: 'محمد حسینی',
+        phone: '09129876543',
+        internal: '102',
+        avatar: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%230984e3%22/%3E%3Ctext x=%2250%22 y=%2260%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22%3Eم%3C/text%3E%3C/svg%3E'
+    },
+    {
+        name: 'زهرا محمدی',
+        phone: '09127778899',
+        internal: '103',
+        avatar: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23fdcb6e%22/%3E%3Ctext x=%2250%22 y=%2260%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22%3Eز%3C/text%3E%3C/svg%3E'
+    }
+];
+
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+let meets = JSON.parse(localStorage.getItem('meets')) || [];
+let chartObj = null;
+let editingTaskIndex = -1;
+let currentDateFilter = 'all';
+
+// تابع اصلی نمایش صفحه
+function goTo(page) {
+    document.querySelectorAll('#home, .page').forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('home-container');
+    });
+    
+    if (page === 'home') {
+        const home = document.getElementById('home');
+        home.style.display = 'block';
+        home.classList.add('home-container');
+    } else {
+        document.getElementById(page).style.display = 'block';
+    }
+    
+    if (page === 'tasks') { 
+        fillEmps(); 
+        fillCategories();
+        listTasks(); 
+        editingTaskIndex = -1;
+        document.getElementById('tasks').querySelector('h3').textContent = 'کار جدید';
+    }
+    if (page === 'emps') { 
+        listEmps(); 
+        document.getElementById('avatarPreview').src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%2374b9ff\'/%3E%3Ctext x=\'50\' y=\'60\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\'%3E%3C/title%3E👤%3C/text%3E%3C/svg%3E';
+    }
+    if (page === 'meetings') { listMeets(); }
+    if (page === 'chart') { fillEmps(); drawChart(); }
+}
+
+// پیش‌نمایش آواتار
+function previewAvatar(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        document.getElementById('avatarPreview').src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+// پر کردن لیست همکاران در سلکت‌ها
+function fillEmps() {
+    const ids = ['t2', 'f1', 'c1'];
+    ids.forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        sel.innerHTML = id === 'f1' || id === 'c1' ? '<option value="">همه همکاران</option>' : '';
+        emps.forEach(emp => {
+            const opt = document.createElement('option');
+            opt.value = emp.name;
+            opt.textContent = emp.name;
+            sel.appendChild(opt);
+        });
+    });
+}
+
+// پر کردن دسته‌بندی‌ها
+function fillCategories() {
+    const sel = document.getElementById('f3');
+    if (!sel) return;
+    sel.innerHTML = '<option value="">همه دسته‌بندی</option>';
+    
+    const categories = [...new Set(tasks.map(t => t.category).filter(c => c))];
+    categories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        sel.appendChild(opt);
+    });
+}
+
+// === همکاران ===
+function listEmps() {
+    const div = document.getElementById('emplist');
+    if (!div) return;
+    div.innerHTML = '';
+    
+    emps.forEach((emp, i) => {
+        const item = document.createElement('div');
+        item.className = 'emp-card';
+        item.innerHTML = `
+            <div class="emp-info">
+                <img src="${emp.avatar}" class="emp-avatar" alt="${emp.name}">
+                <div class="emp-details">
+                    <strong>${emp.name}</strong>
+                    <div class="emp-phone"><i class="fas fa-phone"></i> ${emp.phone}</div>
+                    <div class="emp-internal"><i class="fas fa-hashtag"></i> داخلی: ${emp.internal}</div>
+                </div>
+                <button onclick="delEmp(${i})" style="background: linear-gradient(135deg, #e74c3c, #c0392b); padding: 8px 15px; border: none; color: #fff; border-radius: 8px; cursor: pointer;">حذف</button>
+            </div>
+        `;
+        div.appendChild(item);
+    });
+}
+
+function addEmp() {
+    const name = document.getElementById('e1').value.trim();
+    const phone = document.getElementById('e2').value.trim();
+    const internal = document.getElementById('e3').value.trim();
+    
+    if (!name) return alert('لطفاً نام همکار را وارد کنید!');
+    
+    const avatarFile = document.getElementById('avatarInput').files[0];
+    let avatarUrl = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%2374b9ff%22/%3E%3Ctext x=%2250%22 y=%2260%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22%3E' + encodeURIComponent(name.charAt(0)) + '%3C/text%3E%3C/svg%3E';
+    
+    if (avatarFile) {
+        avatarUrl = URL.createObjectURL(avatarFile);
+    }
+    
+    const newEmp = {
+        name,
+        phone: phone || 'ثبت نشده',
+        internal: internal || 'ثبت نشده',
+        avatar: avatarUrl
+    };
+    
+    if (!emps.find(e => e.name === name)) {
+        emps.push(newEmp);
+        localStorage.setItem('emps', JSON.stringify(emps));
+        
+        document.getElementById('e1').value = '';
+        document.getElementById('e2').value = '';
+        document.getElementById('e3').value = '';
+        document.getElementById('avatarInput').value = '';
+        document.getElementById('avatarPreview').src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%2374b9ff\'/%3E%3Ctext x=\'50\' y=\'60\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\'%3E👤%3C/text%3E%3C/svg%3E';
+        
+        listEmps();
+        fillEmps();
+    } else {
+        alert('این نام قبلاً ثبت شده است!');
+    }
+}
+
+function delEmp(i) {
+    if (confirm('آیا از حذف این همکار مطمئنید؟')) {
+        const empToDelete = emps[i];
+        emps.splice(i, 1);
+        localStorage.setItem('emps', JSON.stringify(emps));
+        listEmps();
+        fillEmps();
+        listTasks();
+    }
+}
+
+// === کارها ===
+function saveTask() {
+    const name = document.getElementById('t1').value.trim();
+    const empName = document.getElementById('t2').value;
+    const desc = document.getElementById('t3').value.trim();
+    const startDate = document.getElementById('t4').value;
+    const endDate = document.getElementById('t7').value;
+    const category = document.getElementById('t6').value;
+    
+    if (!name || !empName || !startDate) return alert('لطفاً فیلدهای اصلی را پر کنید!');
+    
+    const emp = emps.find(e => e.name === empName);
+    if (!emp) return alert('همکار انتخاب شده وجود ندارد!');
+    
+    const fileInput = document.getElementById('t5');
+    const file = fileInput.files[0];
+    let furl = null;
+    let fname = null;
+    
+    if (file) {
+        furl = URL.createObjectURL(file);
+        fname = file.name;
+    }
+    
+    const dt = new Date(startDate);
+    const j = jalaali.toJalaali(dt.getFullYear(), dt.getMonth() + 1, dt.getDate());
+    const jd = `${j.jy}/${j.jm.toString().padStart(2, '0')}/${j.jd.toString().padStart(2, '0')}`;
+    
+    const taskData = { 
+        name, 
+        emp: empName,
+        empAvatar: emp.avatar,
+        desc, 
+        startDate, 
+        endDate,
+        date: startDate,
+        jd, 
+        done: false, 
+        furl, 
+        fname, 
+        category,
+        time: new Date().toLocaleString('fa-IR') 
+    };
+    
+    if (editingTaskIndex === -1) {
+        tasks.push(taskData);
+    } else {
+        tasks[editingTaskIndex] = taskData;
+        editingTaskIndex = -1;
+        document.getElementById('tasks').querySelector('h3').textContent = 'کار جدید';
+    }
+    
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    
+    ['t1', 't3', 't4', 't7', 't5'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('t6').value = '';
+    
+    listTasks();
+    fillCategories();
+}
+
+function listTasks() {
+    const div = document.getElementById('tasklist');
+    if (!div) return;
+    div.innerHTML = '';
+    
+    const fe = document.getElementById('f1').value;
+    const fs = document.getElementById('f2').value;
+    const fc = document.getElementById('f3').value;
+    
+    let filteredTasks = tasks.filter(t => {
+        if (fe && t.emp !== fe) return false;
+        if (fs !== '' && (fs === '1') !== t.done) return false;
+        if (fc && t.category !== fc) return false;
+        return true;
+    });
+    
+    filteredTasks = filterTasksByDate(filteredTasks);
+    filteredTasks.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+    
+    if (filteredTasks.length === 0) {
+        div.innerHTML = '<p style="text-align: center; color: #777; padding: 20px;">هیچ کاری یافت نشد.</p>';
+        return;
+    }
+    
+    filteredTasks.forEach((t, i) => {
+        const originalIndex = tasks.findIndex(task => 
+            task.name === t.name && 
+            task.emp === t.emp && 
+            task.startDate === t.startDate
+        );
+        
+        const emp = emps.find(e => e.name === t.emp) || {avatar: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23cccccc%22/%3E%3Ctext x=%2250%22 y=%2260%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22%3E?%3C/text%3E%3C/svg%3E'};
+        
+        const item = document.createElement('div');
+        item.className = `item ${t.done ? 'done' : ''}`;
+        
+        const endDateInfo = t.endDate ? 
+            `<br><small class="small">تا: ${new Date(t.endDate).toLocaleDateString('fa-IR')}</small>` : '';
+        
+        const categoryBadge = t.category ? 
+            `<span class="category-badge">${t.category}</span>` : '';
+        
+        item.innerHTML = `
+            <div class="item-content">
+                <div class="task-emp-info">
+                    <img src="${t.empAvatar || emp.avatar}" class="task-emp-avatar" alt="${t.emp}">
+                    <strong>${t.name}</strong>
+                    ${categoryBadge}
+                </div>
+                <small class="small">${t.emp} — ${t.jd} ${endDateInfo}</small><br>
+                <small class="small">${t.desc || ''}</small><br>
+                <small class="small">ثبت: ${t.time}</small>
+                ${t.fname ? `<div class="att">پیوست: <a href="${t.furl}" target="_blank">${t.fname}</a></div>` : ''}
+            </div>
+            <div class="item-buttons">
+                <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${originalIndex})" title="تغییر وضعیت">
+                <button onclick="editTask(${originalIndex})" style="background: linear-gradient(135deg, #00b894, #00cec9); padding: 8px;">ویرایش</button>
+                <button onclick="deleteTask(${originalIndex})" style="background: linear-gradient(135deg, #e74c3c, #c0392b); padding: 8px;">حذف</button>
+            </div>
+        `;
+        div.appendChild(item);
+    });
+}
+
+function filterByDate(type) {
+    currentDateFilter = type;
+    
+    document.querySelectorAll('#dateFilters .category-filter').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    listTasks();
+}
+
+function filterTasksByDate(taskList) {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const weekAgo = new Date(today);
+    weekAgo.setDate(today.getDate() - 7);
+    const monthAgo = new Date(today);
+    monthAgo.setMonth(today.getMonth() - 1);
+    
+    return taskList.filter(t => {
+        const taskDate = new Date(t.startDate);
+        
+        switch(currentDateFilter) {
+            case 'today':
+                return taskDate.toDateString() === today.toDateString();
+            case 'week':
+                return taskDate >= weekAgo && taskDate <= today;
+            case 'month':
+                return taskDate >= monthAgo && taskDate <= today;
+            case 'past':
+                return taskDate < today;
+            case 'future':
+                return taskDate > today;
+            default:
+                return true;
+        }
+    });
+}
+
+function editTask(i) {
+    const task = tasks[i];
+    document.getElementById('t1').value = task.name;
+    document.getElementById('t2').value = task.emp;
+    document.getElementById('t3').value = task.desc || '';
+    document.getElementById('t4').value = task.startDate;
+    document.getElementById('t7').value = task.endDate || '';
+    document.getElementById('t6').value = task.category || '';
+    document.getElementById('tasks').querySelector('h3').textContent = 'ویرایش کار';
+    editingTaskIndex = i;
+    
+    document.getElementById('tasks').scrollIntoView({ behavior: 'smooth' });
+}
+
+function toggleTask(i) {
+    tasks[i].done = !tasks[i].done;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    listTasks();
+}
+
+function deleteTask(i) {
+    if (confirm('حذف شود؟')) {
+        tasks.splice(i, 1);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        fillCategories();
+        listTasks();
+    }
+}
+
+// === جلسات ===
+function saveMeet() {
+    const title = document.getElementById('m1').value.trim();
+    const date = document.getElementById('m2').value;
+    const time = document.getElementById('m3').value;
+    if (!title || !date || !time) return alert('موضوع، تاریخ و ساعت الزامی است!');
+    
+    const fileInput = document.getElementById('m6');
+    const file = fileInput.files[0];
+    const furl = file ? URL.createObjectURL(file) : null;
+    const fname = file ? file.name : null;
+    
+    const dt = new Date(date + 'T' + time);
+    const j = jalaali.toJalaali(dt.getFullYear(), dt.getMonth() + 1, dt.getDate());
+    const jd = `${j.jy}/${j.jm.toString().padStart(2, '0')}/${j.jd.toString().padStart(2, '0')}`;
+    const pt = dt.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+    
+    const meeting = {
+        title, 
+        date, 
+        time, 
+        dt: dt.getTime(), 
+        jd, 
+        pt,
+        loc: document.getElementById('m4').value.trim(),
+        note: document.getElementById('m5').value.trim(),
+        furl, 
+        fname,
+        rem: document.getElementById('m7').checked
+    };
+    
+    meets.push(meeting);
+    localStorage.setItem('meets', JSON.stringify(meets));
+    
+    ['m1', 'm2', 'm3', 'm4', 'm5'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('m6').value = '';
+    
+    listMeets();
+    
+    if (meeting.rem && dt > new Date()) {
+        const delay = dt - new Date() - 15 * 60 * 1000;
+        if (delay > 0) {
+            setTimeout(() => {
+                if (Notification.permission === 'granted') {
+                    new Notification('یادآوری جلسه', { body: `${title} — ${jd} ساعت ${pt}` });
+                } else {
+                    alert(`۱۵ دقیقه تا جلسه: ${title}`);
+                }
+            }, delay);
+        }
+    }
+}
+
+function listMeets() {
+    const div = document.getElementById('meetlist');
+    if (!div) return;
+    div.innerHTML = '';
+    const now = Date.now();
+    
+    const sortedMeets = [...meets].sort((a, b) => a.dt - b.dt);
+    
+    sortedMeets.forEach((m, i) => {
+        const up = m.dt > now;
+        const item = document.createElement('div');
+        item.className = `item meet ${up ? 'up' : ''}`;
+        item.innerHTML = `
+            <div class="item-content">
+                <strong>${m.title}</strong><br>
+                <small class="small">${m.jd} — ساعت ${m.pt}</small>
+                ${m.loc ? `<br><small class="small">محل: ${m.loc}</small>` : ''}
+                ${m.note ? `<br><small class="small">${m.note}</small>` : ''}
+                ${m.fname ? `<div class="att">پیوست: <a href="${m.furl}" target="_blank">${m.fname}</a></div>` : ''}
+                ${m.rem && up ? '<small class="small" style="color: #fff; font-weight: bold;">یادآوری فعال</small>' : ''}
+            </div>
+            <div class="item-buttons">
+                <button onclick="deleteMeet(${i})" style="background: linear-gradient(135deg, #fab1a0, #fd79a8); padding: 8px 15px; border: none; color: #fff; border-radius: 8px; cursor: pointer;">حذف</button>
+            </div>
+        `;
+        div.appendChild(item);
+    });
+}
+
+function deleteMeet(i) {
+    if (confirm('حذف شود؟')) {
+        meets.splice(i, 1);
+        localStorage.setItem('meets', JSON.stringify(meets));
+        listMeets();
+    }
+}
+
+// === نمودار ===
+function drawChart() {
+    const emp = document.getElementById('c1').value;
+    if (!emp) return;
+    
+    const done = tasks.filter(t => t.emp === emp && t.done).length;
+    const pend = tasks.filter(t => t.emp === emp && !t.done).length;
+    
+    const canvas = document.getElementById('canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (chartObj) chartObj.destroy();
+    
+    chartObj = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['انجام شده', 'در حال انجام'],
+            datasets: [{
+                data: [done, pend],
+                backgroundColor: ['#00b894', '#fdcb6e'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { 
+                legend: { 
+                    position: 'bottom', 
+                    labels: { 
+                        padding: 20, 
+                        font: { size: 14 } 
+                    } 
+                } 
+            },
+            animation: { 
+                animateRotate: true, 
+                duration: 1500 
+            }
+        }
+    });
+}
+
+// شروع (درخواست نوتیفیکیشن)
+if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+}
+
+// لود اولیه
+fillEmps();
+fillCategories();
+listTasks();
+listMeets();
+listEmps();
+
+// نمایش دکمه نصب بعد از 3 ثانیه
+setTimeout(() => {
+    if (installButton.style.display === 'none' && !window.matchMedia('(display-mode: standalone)').matches) {
+        installButton.style.display = 'block';
+    }
+}, 3000);
+</script>
+
+</body>
+</html>
